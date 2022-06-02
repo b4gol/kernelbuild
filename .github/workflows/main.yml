@@ -1,0 +1,18 @@
+name: Kernel
+
+on: push
+
+jobs:
+  build:
+    name: My Job;
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build Kernel
+      run: |
+        chmod a+x ./build.sh
+        ./build.sh
+      shell: bash
+      env:
+        CI_SECRET: ${{ secrets.CI_SECRET }}
+
