@@ -1,21 +1,23 @@
 #!/bin/bash
 sudo apt update && sudo apt install ccache
 # Export
+echo "Environment Setup"
 export TELEGRAM_TOKEN
 export TELEGRAM_CHAT
-export ARCH="arm"
-export SUBARCH="arm"
+echo "Export Path"
+export ARCH="arm64"
+export SUBARCH="arm64"
 export PATH="/usr/lib/ccache:$PATH"
-export KBUILD_BUILD_USER="wulan17"
-export KBUILD_BUILD_HOST="Github"
-export branch="ten"
-export device="cactus"
-export LOCALVERSION="-wulan17"
-export kernel_repo="https://github.com/wulan17/android_kernel_xiaomi_mt6765.git"
-export tc_repo="https://github.com/wulan17/linaro_arm-linux-gnueabihf-7.5.git"
-export tc_name="arm-linux-gnueabihf"
-export tc_v="7.5"
-export zip_name="kernel-""$device""-"$(env TZ='Asia/Jakarta' date +%Y%m%d)""
+export KBUILD_BUILD_USER="B4gol"
+export KBUILD_BUILD_HOST="CircleCI"
+export branch="rel"
+export device="riva"
+export LOCALVERSION="-b4gol"
+export kernel_repo="https://github.com/B4gol/platform-kernelist-xiaomi-rova.git"
+export tc_repo="https://github.com/B4gol/aarch64-elf-gcc.git"
+export tc_name="aarch64-elf-gcc"
+export tc_v="10.3.1"
+export zip_name="decker-""$device""-"$(env TZ='Asia/Jakarta' date +%Y%m%d)""
 export KERNEL_DIR=$(pwd)
 export KERN_IMG="$KERNEL_DIR"/kernel/out/arch/"$ARCH"/boot/zImage-dtb
 export ZIP_DIR="$KERNEL_DIR"/AnyKernel
@@ -50,7 +52,7 @@ function build(){
 function success(){
 	curl -v -F "chat_id=$TELEGRAM_CHAT" -F document=@"$ZIP_DIR"/"$zip_name".zip -F "parse_mode=html" -F caption="Build completed successfully in $((BUILD_DIFF / 60)):$((BUILD_DIFF % 60))
 	Dev : ""$KBUILD_BUILD_USER""
-	Product : Kernel
+	Product : Redmi 4a/5a
 	Device : #""$device""
 	Branch : ""$branch""
 	Host : ""$KBUILD_BUILD_HOST""
