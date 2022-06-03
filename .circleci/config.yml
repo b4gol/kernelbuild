@@ -1,1 +1,18 @@
-1
+version: 2.1
+
+jobs:
+  decent:
+
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:  echo "Environment Setup"
+              TELEGRAM_TOKEN=$TELEGRAM_TOKEN
+              TELEGRAM_CHAT=$TELEGRAM_CHAT
+              GITHUB_TOKEN=$OAUTH_TOKEN
+      - run:  sudo bash build.sh
+workflows:
+  decent-workflow:
+    jobs:
+      - decent
