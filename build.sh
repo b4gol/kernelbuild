@@ -6,12 +6,12 @@ export TELEGRAM_CHAT
 export sticker="CAACAgUAAxkBAAIL2l6XZzZMONmyzN78ZXKauBmF7B59AAIIAQACai2MM14xGHW1mrNAGAQ" 
 export ARCH="arm64"
 export SUBARCH="arm64"
-export KBUILD_BUILD_USER="wulan17"
-export KBUILD_BUILD_HOST="Github"
+export KBUILD_BUILD_USER="B4gol"
+export KBUILD_BUILD_HOST="CircleCI"
 export branch="dev/pie"
-export device="trinket"
-export LOCALVERSION="-wulan17"
-export kernel_repo="https://github.com/wulan17/android_kernel_realme_rmx2030.git"
+export device="riva"
+export LOCALVERSION="-B4gol"
+export kernel_repo="https://github.com/B4gol/platform-kernelist-xiaomi-rova.git"
 export tc_repo="https://github.com/wulan17/linaro_aarch64-linux-gnu-7.5.git"
 export tc_name="aarch64-linux-gnu"
 export tc32_repo="https://github.com/wulan17/linaro_arm-linux-gnueabihf-7.5.git"
@@ -20,7 +20,7 @@ export tc_branch="master"
 export tc_v="7.5"
 export clang_url="https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-9.0.0_r55/clang-4691093.tar.gz"
 export clang_triple="aarch64-linux-gnu-"
-export zip_name="kernel-""$device""-"$(env TZ='Asia/Jakarta' date +%Y%m%d)""
+export zip_name="decker-""$device""-"$(env TZ='Asia/Jakarta' date +%Y%m%d)""
 export KERNEL_DIR=$(pwd)
 export KERN_IMG="$KERNEL_DIR"/kernel/out/arch/"$ARCH"/boot/Image.gz-dtb
 export ZIP_DIR="$KERNEL_DIR"/AnyKernel
@@ -57,21 +57,21 @@ function build(){
 	cd "$KERNEL_DIR"/kernel
 	export last_tag=$(git log -1 --oneline)
 	curl -s -v -F "chat_id=$TELEGRAM_CHAT" -F "parse_mode=html" -F text="Build Started" https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage > /dev/null
-	script "$KERNEL_DIR"/kernel.log -c 'make O=out vendor/'"$device"'_defconfig '"$THREAD"' && make '"$THREAD"' CC=clang CLANG_TRIPLE='"$clang_triple"' CROSS_COMPILE='"$tc_name"'- CROSS_COMPILE_ARM32='"$tc32_name"'- O=out'
+	script "$KERNEL_DIR"/kernel.log -c 'make O=out vendor/'"$device"'final_defconfig '"$THREAD"' && make '"$THREAD"' CC=clang CLANG_TRIPLE='"$clang_triple"' CROSS_COMPILE='"$tc_name"'- CROSS_COMPILE_ARM32='"$tc32_name"'- O=out'
 	BUILD_END=$(date +"%s")
 	BUILD_DIFF=$((BUILD_END - BUILD_START))
 	export BUILD_DIFF
 }
 function success(){
 	curl -s -v -F "chat_id=$TELEGRAM_CHAT" -F document=@"$ZIP_DIR"/"$zip_name".zip -F "parse_mode=html" -F caption="Build completed successfully in $((BUILD_DIFF / 60)):$((BUILD_DIFF % 60))
-	Dev : ""$KBUILD_BUILD_USER""
-	Product : Kernel
+	By : ""$KBUILD_BUILD_USER""
+	Product : Rova
 	Device : #""$device""
 	Branch : ""$branch""
 	Host : ""$KBUILD_BUILD_HOST""
 	Commit : ""$last_tag""
-	Compiler : ""$(${CROSS_COMPILE}gcc --version | head -n 1)""
-	Date : ""$(env TZ=Asia/Jakarta date)""" https://api.telegram.org/bot$TELEGRAM_TOKEN/sendDocument
+	Alat : ""$(${CROSS_COMPILE}gcc --version | head -n 1)""
+	Tgl : ""$(env TZ=Asia/Jakarta date)""" https://api.telegram.org/bot$TELEGRAM_TOKEN/sendDocument
 	
 	curl -s -v -F "chat_id=$TELEGRAM_CHAT" -F document=@"$KERNEL_DIR"/kernel.log https://api.telegram.org/bot$TELEGRAM_TOKEN/sendDocument > /dev/null
 	exit 0
