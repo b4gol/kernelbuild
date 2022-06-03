@@ -1,5 +1,4 @@
 #!/bin/bash
-ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts
 sudo apt update && sudo apt install ccache wget bc build-essential make autoconf automake
 # Export
 export TELEGRAM_TOKEN
