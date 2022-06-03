@@ -1,4 +1,6 @@
 #!/bin/bash
+echo "ssh-keyscan"
+ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts
 sudo apt update && sudo apt install ccache tar xz-utils
 # Export
 export TELEGRAM_TOKEN
