@@ -12,7 +12,7 @@ export KBUILD_BUILD_USER="B4gol"
 export KBUILD_BUILD_HOST="CircleCI"
 export branch="11-master"
 export device="riva"
-export CONFIG=final_defconfig
+export CONFIG=init_defconfig
 export LOCALVERSION="-b4gol"
 export kernel_repo="https://github.com/B4gol/platform-kernelist-xiaomi-rova.git"
 export tc_repo="https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9"
@@ -53,13 +53,13 @@ function build(){
 }
 function success(){
 	curl -v -F "chat_id=$TELEGRAM_CHAT" -F document=@"$ZIP_DIR"/"$zip_name".zip -F "parse_mode=html" -F caption="Build completed successfully in $((BUILD_DIFF / 60)):$((BUILD_DIFF % 60))
-	Dev : ""$KBUILD_BUILD_USER""
+	By : ""$KBUILD_BUILD_USER""
 	Product : Redmi 4a/5a
 	Device : #""$device""
 	Branch : ""$branch""
 	Host : ""$KBUILD_BUILD_HOST""
 	Commit : ""$last_tag""
-	Compiler : ""$(${CROSS_COMPILE}gcc --version | head -n 1)""
+	Compiler : ""$(${CROSS_COMPILE}gcc-$tc_v --version | head -n 1)""
 	Date : ""$(env TZ=Asia/Jakarta date)""" https://api.telegram.org/bot$TELEGRAM_TOKEN/sendDocument
 	
 	curl -v -F "chat_id=$TELEGRAM_CHAT" -F document=@"$KERNEL_DIR"/kernel.log https://api.telegram.org/bot$TELEGRAM_TOKEN/sendDocument > /dev/null
