@@ -44,10 +44,10 @@ function sync(){
 	cd "$KERNEL_DIR" && git clone --quiet "$THREAD" -b "$tc_branch" "$tc_repo" --depth 1 "$tc_name"-"$tc_v" > /dev/null
 	cd "$KERNEL_DIR" && git clone --quiet "$THREAD" -b "$tc_branch" "$tc32_repo" --depth 1 "$tc32_name"-"$tc_v" > /dev/null
 	wget -q "$clang_url"
-	mkdir -p clang
+	sudo mkdir -p clang
 	cd clang && tar -xzf ../clang-4691093.tar.gz
 	cd "$KERNEL_DIR" && rm clang-4691093.tar.gz
-	chmod -R a+x "$KERNEL_DIR"/"$tc_name"-"$tc_v"
+	sudo chmod -R a+x "$KERNEL_DIR"/"$tc_name"-"$tc_v"
 	SYNC_END=$(date +"%s")
 	SYNC_DIFF=$((SYNC_END - SYNC_START))
 	curl -s -v -F "chat_id=$TELEGRAM_CHAT" -F "parse_mode=html" -F text="Sync completed successfully in $((SYNC_DIFF / 60)) minute(s) and $((SYNC_DIFF % 60)) seconds" https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage > /dev/null
