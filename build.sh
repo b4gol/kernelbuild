@@ -12,14 +12,15 @@ export KBUILD_BUILD_USER="B4gol"
 export KBUILD_BUILD_HOST="CircleCI"
 export branch="rel"
 export device="riva"
+export CONFIG=final_defconfig
 export LOCALVERSION="-b4gol"
 export kernel_repo="https://github.com/B4gol/platform-kernelist-xiaomi-rova.git"
-export tc_repo="https://github.com/B4gol/aarch64-elf-gcc.git"
-export tc_name="aarch64-elf-gcc"
-export tc_v="10.3.1"
+export tc_repo="https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9"
+export tc_name="aarch64-linux_androidkernel-"
+export tc_v="4.9.x"
 export zip_name="decker-""$device""-"$(env TZ='Asia/Jakarta' date +%Y%m%d)""
 export KERNEL_DIR=$(pwd)
-export KERN_IMG="$KERNEL_DIR"/kernel/out/arch/"$ARCH"/boot/zImage-dtb
+export KERN_IMG="$KERNEL_DIR"/kernel/out/arch/"$ARCH"/boot/Image.gz-dtb
 export ZIP_DIR="$KERNEL_DIR"/AnyKernel
 export CONFIG_DIR="$KERNEL_DIR"/kernel/arch/"$ARCH"/configs
 export CORES=$(grep -c ^processor /proc/cpuinfo)
@@ -43,7 +44,7 @@ function build(){
 	cd "$KERNEL_DIR"/kernel
 	export last_tag=$(git log -1 --oneline)
 	curl -v -F "chat_id=$TELEGRAM_CHAT" -F "parse_mode=html" -F text="Build Started" https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage > /dev/null
-	make  O=out "$device"_defconfig "$THREAD" > "$KERNEL_DIR"/kernel.log
+	make  O=out "$CONFIG_DIR-$CONFIG" "$THREAD" > "$KERNEL_DIR"/kernel.log
 	make "$THREAD" O=out >> "$KERNEL_DIR"/kernel.log
 	BUILD_END=$(date +"%s")
 	BUILD_DIFF=$((BUILD_END - BUILD_START))
