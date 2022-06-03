@@ -1,8 +1,10 @@
 #!/bin/bash
+ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts
 sudo apt update && sudo apt install ccache wget bc build-essential make autoconf automake
 # Export
 export TELEGRAM_TOKEN
 export TELEGRAM_CHAT
+export OAUTH_TOKEN
 export sticker="CAACAgUAAxkBAAIL2l6XZzZMONmyzN78ZXKauBmF7B59AAIIAQACai2MM14xGHW1mrNAGAQ" 
 export ARCH="arm64"
 export SUBARCH="arm64"
