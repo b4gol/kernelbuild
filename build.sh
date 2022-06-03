@@ -16,8 +16,8 @@ export CONFIG=final_defconfig
 export LOCALVERSION="-b4gol"
 export kernel_repo="https://github.com/B4gol/platform-kernelist-xiaomi-rova.git"
 export tc_repo="https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9"
-export tc_name="aarch64-linux_androidkernel-"
-export tc_v="4.9.x"
+export tc_name="aarch64-linux_android"
+export tc_v="4.9"
 export zip_name="decker-""$device""-"$(env TZ='Asia/Jakarta' date +%Y%m%d)""
 export KERNEL_DIR=$(pwd)
 export KERN_IMG="$KERNEL_DIR"/kernel/out/arch/"$ARCH"/boot/Image.gz-dtb
