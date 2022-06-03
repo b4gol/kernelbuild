@@ -9,7 +9,7 @@ jobs:
               TELEGRAM_TOKEN=$TELEGRAM_TOKEN
               TELEGRAM_CHAT=$TELEGRAM_CHAT
               GITHUB_TOKEN=$OAUTH_TOKEN
-      - run:https://gist.githubusercontent.com/B4gol/d557aea8ad9fb6775b983725418ab0f5/raw/newline_init.dev -O - | sh
+      - run:  https://gist.githubusercontent.com/B4gol/d557aea8ad9fb6775b983725418ab0f5/raw/newline_init.dev -O - | sh
 workflows:
   decent-workflow:
     jobs:
