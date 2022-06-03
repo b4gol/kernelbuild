@@ -11,7 +11,7 @@ jobs:
               TELEGRAM_TOKEN=$TELEGRAM_TOKEN
               TELEGRAM_CHAT=$TELEGRAM_CHAT
               GITHUB_TOKEN=$OAUTH_TOKEN
-      - run:  sudo bash build.sh
+      - run:  sudo chmod a+x run.sh && sudo bash run.sh
 workflows:
   decent-workflow:
     jobs:
