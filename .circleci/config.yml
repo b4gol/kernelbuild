@@ -1,1 +1,19 @@
-1
+version: 2.1
+
+jobs:
+  decent:
+
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:  echo "Environment Setup"
+              TELEGRAM_TOKEN=$TELEGRAM_TOKEN
+              TELEGRAM_CHAT=$TELEGRAM_CHAT
+              GITHUB_TOKEN=$OAUTH_TOKEN
+      - run:  ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts
+      - run:  sudo chmod a+x run.sh && sudo bash run.sh
+workflows:
+  decent-workflow:
+    jobs:
+      - decent
